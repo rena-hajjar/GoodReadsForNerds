@@ -1,8 +1,7 @@
 package com.renaspring.springdemo;
 
 import jakarta.persistence.*;
-
-import java.util.Locale;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 @Entity
 public class Customer {
@@ -10,7 +9,8 @@ public class Customer {
     @Id
     @SequenceGenerator(
             name = "customer_id_sequence",
-            sequenceName = "customer_id_sequence"
+            sequenceName = "customer_id_sequence",
+            allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
