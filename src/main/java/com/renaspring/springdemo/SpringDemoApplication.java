@@ -12,19 +12,19 @@ import java.util.Optional;
 @RequestMapping("api/v1/customers")
 public class SpringDemoApplication {
 
-	private final CustomerRespository customerRepository;
+	private final BookRepository bookRepository;
 
-    public SpringDemoApplication(CustomerRespository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
+	public SpringDemoApplication(BookRepository bookRepository) {
+		this.bookRepository = bookRepository;
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringDemoApplication.class, args);
 	}
 
 	@GetMapping
-	public List<Customer> getCustomers() {
-		return customerRepository.findAll();
+	public List<Book> getCustomers() {
+		return bookRepository.findAll();
 	}
 
 	record NewCustomerRequest(
@@ -35,17 +35,15 @@ public class SpringDemoApplication {
 
 	@PostMapping
 	public void addCustomer(@RequestBody NewCustomerRequest request) {
-		Customer customer = new Customer();
-		customer.setAge(request.age);
-		customer.setEmail(request.email);
+		Book customer = new Book();
 		customer.setName(request.name);
 
-		customerRepository.save(customer);
+		bookRepository.save(customer);
 	}
 
 	@DeleteMapping("{customerId}")
 	public void deleteCustomer(@PathVariable("customerId") Integer id) {
-		customerRepository.deleteById(id);
+		bookRepository.deleteById(id);
 	}
 
 	record ChangeCustomerRequest(
@@ -56,11 +54,9 @@ public class SpringDemoApplication {
 
 	@PutMapping("{customerId}")
 	public void updateCustomer(ChangeCustomerRequest changeRequest, @PathVariable("customerId") Integer id) {
-		Customer customer = customerRepository.getReferenceById(id);
-		changeRequest.age.ifPresent(customer::setAge);
-        changeRequest.name.ifPresent(customer::setName);
-		changeRequest.email.ifPresent(customer::setEmail);
+		Book book = bookRepository.getReferenceById(id);
+        changeRequest.name.ifPresent(book::setName);
 
-		customerRepository.save(customer);
+		bookRepository.save(book);
 	}
 }
