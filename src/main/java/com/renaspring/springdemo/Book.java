@@ -18,9 +18,9 @@ public class Book {
             generator = "book_id_sequence"
     )
     private Integer id;
-    private String name;
+    private String title;
     private String author;
-    private String status;
+    private BookStatus status;
     private Integer rating;
     private Date dateFinished;
     private Date dateStarted;
@@ -57,17 +57,17 @@ public class Book {
         this.dateStarted = dateStarted;
     }
 
-    public String getStatus() {
+    public BookStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(BookStatus status) {
         this.status = status;
     }
 
-    public Book(Integer id, String name, String author, String status, Date dateStarted, Date dateFinished, Integer rating) {
+    public Book(Integer id, String title, String author, BookStatus status, Date dateStarted, Date dateFinished, Integer rating) {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.author = author;
         this.status = status;
         this.dateStarted = dateStarted;
@@ -85,12 +85,12 @@ public class Book {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String name) {
+        this.title = name;
     }
 
     @Override
@@ -107,7 +107,7 @@ public class Book {
     public String toString() {
         return "Book{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", status='" + status + '\'' +
                 ", rating=" + rating +

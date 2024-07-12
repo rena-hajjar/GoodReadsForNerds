@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,18 +28,21 @@ public class SpringDemoApplication {
 		return bookRepository.findAll();
 	}
 
-	record NewCustomerRequest(
-			String name,
-			String email,
-			Integer age
+	record NewBookRequest(
+			String title,
+			String author,
+			Date dateStarted
 	) {}
 
 	@PostMapping
-	public void addCustomer(@RequestBody NewCustomerRequest request) {
-		Book customer = new Book();
-		customer.setName(request.name);
+	public void addBook(@RequestBody NewBookRequest request) {
+		Book book = new Book();
+		book.setTitle(request.title);
+		book.setAuthor(request.author);
+		book.setStatus(BookStatus.BACKLOGGED); // decide what the 3 things will be
+		book.setDateStarted(request.dateStarted);
 
-		bookRepository.save(customer);
+		bookRepository.save(book);
 	}
 
 	@DeleteMapping("{customerId}")
@@ -52,10 +56,11 @@ public class SpringDemoApplication {
 			Optional<String> email
 	) {}
 
+	// boi this does not work
 	@PutMapping("{customerId}")
 	public void updateCustomer(ChangeCustomerRequest changeRequest, @PathVariable("customerId") Integer id) {
 		Book book = bookRepository.getReferenceById(id);
-        changeRequest.name.ifPresent(book::setName);
+        changeRequest.name.ifPresent(book::setTitle);
 
 		bookRepository.save(book);
 	}
