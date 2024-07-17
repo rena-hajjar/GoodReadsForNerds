@@ -1,4 +1,4 @@
-# Good Reads (but my version which is way better)
+# 📖 Good Reads (but my version which is way better) 📖
 ---
 ### For my own enjoyment, a place where I can keep my book status, as well as my notes on specific chapters (I have a lot to say)
 - Built with a Spring Boot backend and React frontend
