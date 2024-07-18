@@ -4,32 +4,34 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @SpringBootApplication
 @RestController
-@RequestMapping("api/customers")
+@RequestMapping("api/books")
 public class MainApplication {
 
-//	private final BookRepository bookRepository;
-//
-//	public SpringDemoApplication(BookRepository bookRepository) {
-//		this.bookRepository = bookRepository;
-//	}
+	private final BookRepository bookRepository;
 
-	public static void main(String[] args) {
+    public MainApplication(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
+
+    public static void main(String[] args) {
 		SpringApplication.run(MainApplication.class, args);
-//	}
-//
-//	@GetMapping
-//	public List<Book> getCustomers() {
-//		return bookRepository.findAll();
-//	}
-//
-//	record NewBookRequest(
-//			String title,
-//			String author,
-//			Date dateStarted
-//	) {}
-//
+	}
+
+	@GetMapping
+	public List<Book> getCustomers() {
+		return bookRepository.findAll();
+	}
+
+	record NewBookRequest(
+			String title,
+			String author,
+			String dateStarted
+	) {}
+
 //	@PostMapping
 //	public void addBook(@RequestBody NewBookRequest request) {
 //		Book book = new Book();
@@ -60,5 +62,4 @@ public class MainApplication {
 //
 //		bookRepository.save(book);
 //	}
-	}
 }
