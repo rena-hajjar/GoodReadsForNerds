@@ -29,11 +29,10 @@ public class MainApplication {
 
 	record NewBookRequest(
 			String title,
-			String author,
-			String dateStarted
+			String author
 	) {}
 
-	@PostMapping
+	@PostMapping("/new-book")
 	public void addBook(@RequestBody NewBookRequest request) {
 		Book book = new Book();
 		book.setTitle(request.title);

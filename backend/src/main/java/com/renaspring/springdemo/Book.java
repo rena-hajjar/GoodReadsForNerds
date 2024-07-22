@@ -1,15 +1,23 @@
 package com.renaspring.springdemo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.sql.Date;
-
-@Document("book")
+@Entity
 public class Book {
 
     @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "BookIDGenerator"
+    )
+    @SequenceGenerator(
+            name = "BookIDGenerator",
+            allocationSize = 1
+    )
     private Integer id;
     private String title;
     private String author;
@@ -25,30 +33,6 @@ public class Book {
     public void setAuthor(String author) {
         this.author = author;
     }
-
-//    public Integer getRating() {
-//        return rating;
-//    }
-//
-//    public void setRating(Integer rating) {
-//        this.rating = rating;
-//    }
-//
-//    public Date getDateFinished() {
-//        return dateFinished;
-//    }
-//
-//    public void setDateFinished(Date dateFinished) {
-//        this.dateFinished = dateFinished;
-//    }
-//
-//    public Date getDateStarted() {
-//        return dateStarted;
-//    }
-//
-//    public void setDateStarted(Date dateStarted) {
-//        this.dateStarted = dateStarted;
-//    }
 
     public BookStatus getStatus() {
         return status;
