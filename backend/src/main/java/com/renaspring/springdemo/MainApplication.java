@@ -3,12 +3,14 @@ package com.renaspring.springdemo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @SpringBootApplication
 @RestController
+@EnableMongoRepositories
 @RequestMapping("api/books")
 public class MainApplication {
 
@@ -22,16 +24,12 @@ public class MainApplication {
 		SpringApplication.run(MainApplication.class, args);
 	}
 
-	@GetMapping
-	public List<Book> getCustomers() {
-		return bookRepository.findAll();
-	}
-
 	record NewBookRequest(
 			String title,
 			String author
 	) {}
 
+	@CrossOrigin
 	@PostMapping("/new-book")
 	public void addBook(@RequestBody NewBookRequest request) {
 		Book book = new Book();
@@ -42,23 +40,9 @@ public class MainApplication {
 		bookRepository.save(book);
 	}
 
-//	@DeleteMapping("{customerId}")
-//	public void deleteCustomer(@PathVariable("customerId") Integer id) {
-//		bookRepository.deleteById(id);
-//	}
-//
-//	record ChangeCustomerRequest(
-//			Optional<String> name,
-//			Optional<Integer> age,
-//			Optional<String> email
-//	) {}
-//
-//	// boi this does not work
-//	@PutMapping("{customerId}")
-//	public void updateCustomer(ChangeCustomerRequest changeRequest, @PathVariable("customerId") Integer id) {
-//		Book book = bookRepository.getReferenceById(id);
-//        changeRequest.name.ifPresent(book::setTitle);
-//
-//		bookRepository.save(book);
-//	}
+	@CrossOrigin
+	@GetMapping("/get-books")
+	public List<Book> getBooks() {
+		return bookRepository.findAll();
+	}
 }
